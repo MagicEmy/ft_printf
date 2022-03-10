@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 15:36:15 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/03/09 18:08:38 by emlicame      ########   odam.nl         */
+/*   Updated: 2022/03/10 15:53:34 by emlicame      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ int	ft_putchar(char c);
 int	ft_putstr(char *s);
 int	ft_putnbr_hexa(int nb);
 int	ft_putnbr_upper_hexa(int nb);
+int	ft_put_ptr(size_t nb);
 #endif

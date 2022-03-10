@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 17:12:49 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/03/09 19:40:08 by emlicame      ########   odam.nl         */
+/*   Updated: 2022/03/10 16:00:05 by emlicame      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	ft_putnbr(int nb)
 
 int	ft_putnbr_hexa(int nb)
 {
-	static int	times;
+	int	output_len;
 
-	times = times +1;
+	output_len = 0;
 	if (nb < 0)
 	{
 		ft_putchar('-');
@@ -61,21 +61,22 @@ int	ft_putnbr_hexa(int nb)
 		else
 			ft_putchar(nb + 'a' - 10);
 	}
-	return (times);
+	return (output_len);
 }
 
 int	ft_putnbr_upper_hexa(int nb)
 {
-	static int	times;
+	int	output_len;
 
-	times = times +1;
+	output_len = 0;
 	if (nb < 0)
 	{
-		ft_putchar('-');
+		output_len += ft_putchar('-');
 		nb = nb * -1;
 	}
 	if ((nb / 16) > 0)
 	{
+		output_len += 1;
 		ft_putnbr_upper_hexa(nb / 16);
 		if (nb % 16 <= 9)
 			ft_putchar(nb % 16 + '0');
@@ -84,81 +85,35 @@ int	ft_putnbr_upper_hexa(int nb)
 	}
 	else
 	{
+		output_len += 1;
 		if (nb % 16 <= 9)
 			ft_putchar(nb + '0');
 		else
 			ft_putchar(nb + 'A' - 10);
 	}
-	return (times);
+	return (output_len);
 }
 
-int	ft_putstr(char *s)
+int	ft_put_ptr(size_t nb)
 {
-	int	i;
+	int	output_len;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != '\0')
+	output_len = 0;
+	if (nb >= 16)
 	{
-		ft_putchar(s[i]);
-		i++;
-	}
-	return (i);
-}
-
-int	ft_putnbr_upper_hexa(int nb)
-{
-	static int	times;
-
-	times = times +1;
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		nb = nb * -1;
-	}
-	if ((nb / 16) > 0)
-	{
-		ft_putnbr_upper_hexa(nb / 16);
+		ft_put_ptr(nb / 16);
 		if (nb % 16 <= 9)
 			ft_putchar(nb % 16 + '0');
 		else
-			ft_putchar(nb % 16 + 'A' - 10);
+			ft_putchar(nb % 16 + 'a' - 10);
 	}
-	else
+	else if (nb < 16)
 	{
+		write (1, "0x", 2);
 		if (nb % 16 <= 9)
 			ft_putchar(nb + '0');
 		else
-			ft_putchar(nb + 'A' - 10);
+			ft_putchar(nb + 'a' - 10);
 	}
-	return (times);
-}
-
-int	ft_putnbr_upper_hexa(int nb)
-{
-	static int	times;
-
-	times = times +1;
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		nb = nb * -1;
-	}
-	if ((nb / 16) > 0)
-	{
-		ft_putnbr_upper_hexa(nb / 16);
-		if (nb % 16 <= 9)
-			ft_putchar(nb % 16 + '0');
-		else
-			ft_putchar(nb % 16 + 'A' - 10);
-	}
-	else
-	{
-		if (nb % 16 <= 9)
-			ft_putchar(nb + '0');
-		else
-			ft_putchar(nb + 'A' - 10);
-	}
-	return (times);
+	return (output_len);
 }
