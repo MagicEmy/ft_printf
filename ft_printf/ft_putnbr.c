@@ -12,108 +12,89 @@
 
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
+void	ft_putchar(char c, int *len)
 {
 	write (1, &c, 1);
-	return (1);
+	*len +=1;
 }
 
-int	ft_putnbr(int nb)
+void	ft_putnbr(int nb, int *len)
 {
-	static int	times;
-
-	times = times +1;
 	if (nb < 0)
 	{
-		ft_putchar('-');
+		ft_putchar('-', len);
 		nb = nb * -1;
 	}
 	if (nb > 0)
-	{
-		ft_putnbr(nb / 10);
-	}
-	ft_putchar(nb % 10 + '0');
-	return (times);
+		ft_putnbr(nb / 10, len);
+	ft_putchar(nb % 10 + '0', len);
 }
 
-int	ft_putnbr_hexa(int nb)
+void	ft_putnbr_hexa(unsigned int nb, int *len)
 {
-	int	output_len;
-
-	output_len = 0;
 	if (nb < 0)
 	{
-		ft_putchar('-');
+		ft_putchar('-', len);
 		nb = nb * -1;
 	}
 	if ((nb / 16) > 0)
 	{
-		ft_putnbr_hexa(nb / 16);
+		ft_putnbr_hexa(nb / 16, len);
 		if (nb % 16 <= 9)
-			ft_putchar(nb % 16 + '0');
+			ft_putchar(nb % 16 + '0', len);
 		else
-			ft_putchar(nb % 16 + 'a' - 10);
+			ft_putchar(nb % 16 + 'a' - 10, len);
 	}
 	else
 	{
 		if (nb % 16 <= 9)
-			ft_putchar(nb + '0');
+			ft_putchar(nb + '0', len);
 		else
-			ft_putchar(nb + 'a' - 10);
+			ft_putchar(nb + 'a' - 10, len);
 	}
-	return (output_len);
 }
 
-int	ft_putnbr_upper_hexa(int nb)
+void	ft_putnbr_upper_hexa(unsigned int nb, int *len)
 {
-	int	output_len;
-
-	output_len = 0;
 	if (nb < 0)
 	{
-		output_len += ft_putchar('-');
+		ft_putchar('-', len);
 		nb = nb * -1;
 	}
 	if ((nb / 16) > 0)
 	{
-		output_len += 1;
-		ft_putnbr_upper_hexa(nb / 16);
+		ft_putnbr_hexa(nb / 16, len);
 		if (nb % 16 <= 9)
-			ft_putchar(nb % 16 + '0');
+			ft_putchar(nb % 16 + '0', len);
 		else
-			ft_putchar(nb % 16 + 'A' - 10);
+			ft_putchar(nb % 16 + 'A' - 10, len);
 	}
 	else
 	{
-		output_len += 1;
 		if (nb % 16 <= 9)
-			ft_putchar(nb + '0');
+			ft_putchar(nb + '0', len);
 		else
-			ft_putchar(nb + 'A' - 10);
+			ft_putchar(nb + 'A' - 10, len);
 	}
-	return (output_len);
 }
 
-int	ft_put_ptr(size_t nb)
+void	ft_put_ptr(size_t nb, int *len)
 {
-	int	output_len;
-
-	output_len = 0;
 	if (nb >= 16)
 	{
-		ft_put_ptr(nb / 16);
+		ft_put_ptr(nb / 16, len);
 		if (nb % 16 <= 9)
-			ft_putchar(nb % 16 + '0');
+			ft_putchar(nb % 16 + '0', len);
 		else
-			ft_putchar(nb % 16 + 'a' - 10);
+			ft_putchar(nb % 16 + 'a' - 10, len);
 	}
 	else if (nb < 16)
 	{
-		write (1, "0x", 2);
+		ft_putchar('0', len);
+		ft_putchar('x', len);
 		if (nb % 16 <= 9)
-			ft_putchar(nb + '0');
+			ft_putchar(nb + '0', len);
 		else
-			ft_putchar(nb + 'a' - 10);
+			ft_putchar(nb + 'a' - 10, len);
 	}
-	return (output_len);
 }

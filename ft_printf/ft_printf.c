@@ -12,24 +12,20 @@
 
 #include "ft_printf.h"
 
-int	check_arguments(va_list arguments, char format)
+void	check_arguments(va_list arguments, char format, int *len)
 {
-	int	number;
-
-	number = 0;
 	if (format == 's')
-		number += ft_putstr(va_arg(arguments, char *));
+		ft_putstr(va_arg(arguments, char *), len);
 	if (format == 'c')
-		number += ft_putchar(va_arg(arguments, int));
+		ft_putchar(va_arg(arguments, int), len);
 	if (format == 'x')
-		number += ft_putnbr_hexa(va_arg(arguments, int));
+		ft_putnbr_hexa(va_arg(arguments, unsigned int), len);
 	if (format == 'X')
-		number += ft_putnbr_upper_hexa(va_arg(arguments, int));
+		ft_putnbr_upper_hexa(va_arg(arguments, unsigned int), len);
 	if (format == 'p')
-		number += ft_put_ptr(va_arg(arguments, size_t));
+		ft_put_ptr(va_arg(arguments, size_t), len);
 	if (format == 'i' || format == 'd')
-		number += ft_putnbr(va_arg(arguments, int));
-	return (number);
+		ft_putnbr(va_arg(arguments, int), len);
 }
 
 int	ft_printf(const char *s, ...)
@@ -40,19 +36,19 @@ int	ft_printf(const char *s, ...)
 
 	i = 0;
 	n_elements = 0;
+	if (!s)
+		return (0);
 	va_start(arguments, s);
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
-			n_elements += check_arguments(arguments, s[i + 1]);
-			// check_arguments(arguments, s[i + 1], &n_elements);
-			// *n_elements ++;
+			check_arguments(arguments, s[i + 1], &n_elements);
 			i++;
 		}
 		else
 		{
-			n_elements += ft_putchar(s[i]);
+			ft_putchar(s[i], &n_elements);
 		}
 		i++;
 	}
@@ -60,17 +56,16 @@ int	ft_printf(const char *s, ...)
 	return (n_elements);
 }
 
-int	ft_putstr(char *s)
+void	ft_putstr(char *s, int *len)
 {
 	int	i;
 
 	i = 0;
 	if (!s)
-		return (0);
+		return;
 	while (s[i] != '\0')
 	{
-		ft_putchar(s[i]);
+		ft_putchar(s[i], len);
 		i++;
 	}
-	return (i);
 }
