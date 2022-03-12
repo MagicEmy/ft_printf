@@ -24,8 +24,12 @@ void	check_arguments(va_list arguments, char format, int *len)
 		ft_putnbr_upper_hexa(va_arg(arguments, unsigned int), len);
 	if (format == 'p')
 		ft_put_ptr(va_arg(arguments, size_t), len);
+	if (format == 'u')
+		ft_put_unsigned(va_arg(arguments, unsigned int), len);
 	if (format == 'i' || format == 'd')
 		ft_putnbr(va_arg(arguments, int), len);
+	if (format == '%')
+		ft_putchar('%', len);
 }
 
 int	ft_printf(const char *s, ...)
@@ -62,7 +66,7 @@ void	ft_putstr(char *s, int *len)
 
 	i = 0;
 	if (!s)
-		return;
+		return ;
 	while (s[i] != '\0')
 	{
 		ft_putchar(s[i], len);

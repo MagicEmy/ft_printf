@@ -17,11 +17,13 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-int     ft_printf(const char *s, ...);
-void    ft_putnbr(int nb, int *len);
-void    ft_putchar(char c, int *len);
-void    ft_putstr(char *s, int *len);
-void    ft_putnbr_hexa(unsigned int nb, int *len);
-void    ft_putnbr_upper_hexa(unsigned int nb, int *len);
-void    ft_put_ptr(size_t nb, int *len);
+int		ft_printf(const char *s, ...);
+void	ft_putnbr(int nb, int *len);
+void	ft_putchar(char c, int *len);
+void	ft_putstr(char *s, int *len);
+void	ft_putnbr_hexa(unsigned int nb, int *len);
+void	ft_putnbr_upper_hexa(unsigned int nb, int *len);
+void	ft_put_unsigned(unsigned int nb, int *len);
+void	ft_put_ptr(size_t nb, int *len);
+void	ft_put_percent(char c, int *len);
 #endif

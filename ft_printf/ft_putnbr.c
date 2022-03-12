@@ -15,19 +15,41 @@
 void	ft_putchar(char c, int *len)
 {
 	write (1, &c, 1);
-	*len +=1;
+	*len += 1;
 }
 
 void	ft_putnbr(int nb, int *len)
 {
-	if (nb < 0)
+	long int	l_nb;
+
+	l_nb = nb;
+	if (l_nb < 0)
 	{
 		ft_putchar('-', len);
-		nb = nb * -1;
+		l_nb = l_nb * -1;
 	}
-	if (nb > 0)
-		ft_putnbr(nb / 10, len);
-	ft_putchar(nb % 10 + '0', len);
+	if (l_nb > 9)
+	{
+		ft_putnbr(l_nb / 10, len);
+	}
+	ft_putchar(l_nb % 10 + '0', len);
+}
+
+void	ft_put_unsigned(unsigned int nb, int *len)
+{
+	long unsigned int	l_nb;
+
+	l_nb = nb;
+	if (l_nb < 0)
+	{
+		ft_putchar('-', len);
+		l_nb = l_nb * -1;
+	}
+	if (l_nb > 9)
+	{
+		ft_put_unsigned(l_nb / 10, len);
+	}
+	ft_putchar(l_nb % 10 + '0', len);
 }
 
 void	ft_putnbr_hexa(unsigned int nb, int *len)
@@ -63,7 +85,7 @@ void	ft_putnbr_upper_hexa(unsigned int nb, int *len)
 	}
 	if ((nb / 16) > 0)
 	{
-		ft_putnbr_hexa(nb / 16, len);
+		ft_putnbr_upper_hexa(nb / 16, len);
 		if (nb % 16 <= 9)
 			ft_putchar(nb % 16 + '0', len);
 		else
