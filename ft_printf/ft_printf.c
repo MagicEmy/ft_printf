@@ -59,17 +59,3 @@ int	ft_printf(const char *s, ...)
 	va_end(arguments);
 	return (n_elements);
 }
-
-void	ft_putstr(char *s, int *len)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i] != '\0')
-	{
-		ft_putchar(s[i], len);
-		i++;
-	}
-}

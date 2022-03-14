@@ -26,4 +26,6 @@ void	ft_putnbr_upper_hexa(unsigned int nb, int *len);
 void	ft_put_unsigned(unsigned int nb, int *len);
 void	ft_put_ptr(size_t nb, int *len);
 void	ft_put_percent(char c, int *len);
+void	ft_nb_to_c(int nb, int *len);
+void	ft_nb_to_upperc(int nb, int *len);
 #endif
