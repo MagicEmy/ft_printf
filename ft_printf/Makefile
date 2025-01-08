@@ -9,7 +9,7 @@ CFLAGS := -Wall -Wextra -Werror
 LIBC := ar -rcs
 EXEC := ft_printf
 
-UNITY_PATH = ./Unity
+UNITY_PATH = ../Unity
 UNITY_SRC = $(UNITY_PATH)/src/unity.c
 UNITY_INC = -I$(UNITY_PATH)/src/unity.h
 
